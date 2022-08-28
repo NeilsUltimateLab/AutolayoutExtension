@@ -40,7 +40,7 @@ Much more clear, concise and readable at a glance.
 ## Map
 
 | Native | AutolayoutExtension | Anchor Type | 
-| :---- | :-----------------: | -----------: |
+| :---- | :----------------- | :---------- |
 | `.constraint(equalTo:)` | ``EqualTo`` | `NSLayoutAnchor<Axis>` |
 | `.constraint(equalTo:constant)` | ``EqualToConstant`` | `NSLayoutDimension` |
 | `.constraint(greaterThanOrEqualTo:)` | ``GreaterThanOrEqualTo`` | `NSLayoutAnchor<Axis>` |
