@@ -1,6 +1,6 @@
 # AutolayoutExtension
 
-A light weight, clutter-free, declarative syntax to Autolayout.
+A light weight, clutter-free, declarative syntax to Autolayout. (⚠️ Requires Swift 5.7)
 
 ## Overview
 
