@@ -47,3 +47,85 @@ Much more clear, concise and readable at a glance.
 | `.constraint(greaterThanOrEqualTo:constant)` | ``GreaterThanOrEqualToConstant`` | `NSLayoutDimension` | 
 | `.constraint(lessThanOrEqualTo:)` | ``LessThanOrEqualTo`` |`NSLayoutAnchor<Axis>` |
 | `.constraint(lessThanOrEqualTo:Constant)` | ``LessThanOrEqualToConstant`` | `NSLayoutDimension` |
+
+## Modifiers
+There 3 in-built constraint modifiers available. 
+
+1. `.constant(_ constant: CGFloat)`
+2. `.priority(_ priority : UILayoutPriority)`
+3. `.id<ID: Hashable>(_ id: ID)`
+
+## Example
+
+```swift
+import AutolayoutExtension
+import UIKit
+
+class AView: UIView {
+    var condition: Bool = false {
+        didSet {
+            self.updateLayout()
+        }
+    }
+    
+    private var labelTopConstraint: NSLayoutConstraint?
+    private var imageBottomConstraint: NSLayoutConstraint?
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureSubviews()
+    }
+    
+    private func configureSubviews() {
+        self.addSubview(titleLabel)
+        self.addSubview(imageView)
+        
+        let topAnchorID = UUID()
+        let bottomAnchorID = UUID()
+        
+        let labelConstraints = self.constraint(titleLabel) {
+            EqualTo(\.leadingAnchor)
+            EqualTo(\.trailingAnchor)
+            EqualTo(\.topAnchor)
+                .constant(24)
+                .id(topAnchorID)
+            EqualToConstant(\.heightAnchor, constant: 32)
+        }
+        
+        let imageConstraints = self.constraint(imageView) {
+            EqualTo(\.centerXAnchor)
+            GreaterThanOrEqualTo(\.leadingAnchor)
+                .constant(12)
+            EqualTo(\.topAnchor, with: titleLabel.bottomAnchor)
+                .constant(12)
+            EqualTo(\.bottomAnchor)
+                .priority(.defaultHigh)
+                .id(bottomAnchorID)
+        }
+        
+        self.labelTopConstraint = labelConstraints[topAnchorID]
+        self.imageBottomConstraint = imageConstraints[bottomAnchorID]
+    }
+    
+    private func updateLayout() {
+        self.labelTopConstraint?.constant = condition ? 24 : 32
+        self.imageBottomConstraint?.constant = condition ? 24 : 0
+        self.layoutIfNeeded()
+    }
+}
+```
