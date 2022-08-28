@@ -36,3 +36,14 @@ self.view.anchor(otherView) {
 }
 ```
 Much more clear, concise and readable at a glance.
+
+## Map
+
+| Native | AutolayoutExtension | Anchor Type | 
+| :---- | :-----------------: | -----------: |
+| `.constraint(equalTo:)` | ``EqualTo`` | `NSLayoutAnchor<Axis>` |
+| `.constraint(equalTo:constant)` | ``EqualToConstant`` | `NSLayoutDimension` |
+| `.constraint(greaterThanOrEqualTo:)` | ``GreaterThanOrEqualTo`` | `NSLayoutAnchor<Axis>` |
+| `.constraint(greaterThanOrEqualTo:constant)` | ``GreaterThanOrEqualToConstant`` | `NSLayoutDimension` | 
+| `.constraint(lessThanOrEqualTo:)` | ``LessThanOrEqualTo`` |`NSLayoutAnchor<Axis>` |
+| `.constraint(lessThanOrEqualTo:Constant)` | ``LessThanOrEqualToConstant`` | `NSLayoutDimension` |
